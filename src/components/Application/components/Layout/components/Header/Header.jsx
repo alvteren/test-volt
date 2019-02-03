@@ -12,11 +12,17 @@ import PropTypes from 'prop-types';
 
 const LINKS = [
   { name: 'Customers', path: 'customers', selected: ['customers'] },
-  { name: 'Products', path: 'products', selected: ['products'] }
+  { name: 'Products', path: 'products', selected: ['products'] },
+  {
+    name: 'Invoices',
+    path: 'invoices',
+    selected: ['invoices', 'invoices.new', 'invoices.edit', 'invoices.show']
+  }
 ];
 
 const Header = props => {
   const { route } = props;
+  console.log('route', route);
   return (
     <Navbar className="header" expand="lg" variant="light" bg="light">
       <Container>

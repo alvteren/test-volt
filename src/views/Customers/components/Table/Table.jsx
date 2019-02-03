@@ -44,7 +44,9 @@ const Table = props => {
           ))
         ) : (
           <tr>
-            <td colSpan="4">Not found</td>
+            <td className="text-center" colSpan="5">
+              Not found
+            </td>
           </tr>
         )}
       </tbody>

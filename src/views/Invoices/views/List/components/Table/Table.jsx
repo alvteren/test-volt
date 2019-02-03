@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 
 import TableBootstrap from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { withRouter } from 'react-router5';
 
 const Table = props => {
-  const { data, onEdit, onDelete } = props;
+  const { data, onDelete } = props;
 
   const handleDelete = id => event => {
     event.preventDefault();
@@ -16,23 +17,30 @@ const Table = props => {
     onDelete(id);
   };
 
+  const onRowClick = id => () => {
+    const { router } = props;
+    router.navigate('invoice.edit', { id });
+  };
+
   return (
-    <TableBootstrap className="products__table" responsive hover>
+    <TableBootstrap className="invoices__table" responsive hover>
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Price</th>
+          <th>Customer Name</th>
+          <th>Discount, %</th>
+          <th>Total</th>
           <th />
         </tr>
       </thead>
       <tbody>
         {data.length ? (
           data.map(row => (
-            <tr key={row.id} onClick={onEdit(row.id)}>
+            <tr key={row.id} onClick={onRowClick(row.id)}>
               <td>{row.id}</td>
-              <td>{row.name}</td>
-              <td>{row.price}</td>
+              <td>{row.customer.name}</td>
+              <td>{row.discount}</td>
+              <td>{row.total}</td>
               <td className="text-right">
                 <Button onClick={handleDelete(row.id)} variant="outline-danger">
                   delete
@@ -42,7 +50,7 @@ const Table = props => {
           ))
         ) : (
           <tr>
-            <td className="text-center" colSpan="4">
+            <td className="text-center" colSpan="5">
               Not found
             </td>
           </tr>
@@ -54,10 +62,10 @@ const Table = props => {
 
 Table.propTypes = {
   data: PropTypes.array.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 Table.defaultProps = {};
 
-export default Table;
+export default withRouter(Table);
