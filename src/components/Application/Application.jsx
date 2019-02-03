@@ -1,12 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-export default class Application extends PureComponent {
-  static propTypes = {};
-  static defaultProps = {};
+import Router from './components/Router';
+import Layout from './components/Layout';
 
-  state = {};
+const Application = () => {
+  return (
+    <Router>
+      <Layout />
+    </Router>
+  );
+};
 
-  render() {
-    return <div>122133</div>;
-  }
-}
+export default Application;
