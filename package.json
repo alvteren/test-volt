@@ -9,6 +9,7 @@
   "lint-staged": {
     "*.{js,jsx}": "eslint"
   },
+  "pre-commit": "lint-staged",
   "dependencies": {
     "axios": "^0.18.0",
     "babel-runtime": "^6.3.19",
