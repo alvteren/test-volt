@@ -1,0 +1,4 @@
+.vscode/blueprint-templates/
+node_modules/
+build/
+source/legacy
