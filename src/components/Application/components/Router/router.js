@@ -20,6 +20,10 @@ const dataMiddlewareFactory = routes => () => toState => {
       );
       promises.push(routeActivate);
     }
+    if (route.title) {
+      document.title = route.title;
+    }
+
     return Promise.all(promises)
       .then(([component, data]) => {
         layoutStore.setLoading(false);

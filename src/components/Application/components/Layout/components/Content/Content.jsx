@@ -1,3 +1,5 @@
+import './Content.css';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
@@ -15,12 +17,12 @@ class Content extends Component {
     const { children, layoutStore } = this.props;
 
     if (layoutStore.isLoading) {
-      <main>
+      <main className="content">
         <Loading />
       </main>;
     }
 
-    return <main>{children}</main>;
+    return <main className="content">{children}</main>;
   }
 }
 

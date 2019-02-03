@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { routeNode } from 'react-router5';
 
 import compose from '@utils/compose';
+import Container from 'react-bootstrap/Container';
+import Headline from '@UI/Headline';
 
 class Home extends Component {
   render() {
-    return <div>Home page</div>;
+    return (
+      <Container>
+        <Headline title="Home page" />
+      </Container>
+    );
   }
 }
 
