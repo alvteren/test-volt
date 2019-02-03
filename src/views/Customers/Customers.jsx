@@ -12,24 +12,48 @@ import FormView from './components/Form';
 
 import compose from '@utils/compose';
 
+import customers from '@api/customers';
+
 class Customers extends PureComponent {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    route: PropTypes.object.isRequired
   };
+
   static defaultProps = {};
 
-  state = { showForm: false };
+  state = { showForm: false, data: this.props.route.data, editData: undefined };
 
   openForm = () => {
     this.setState({ showForm: true });
   };
 
   closeForm = () => {
-    this.setState({ showForm: false });
+    this.setState({ showForm: false, editData: undefined });
+  };
+
+  showEditForm = id => async () => {
+    const customer = await customers.getOne(id);
+    this.setState({ showForm: true, editData: customer });
+  };
+
+  saveCustomer = async data => {
+    const isUpdating = data.id > 0;
+
+    const customer = await (isUpdating ? customers.update(data.id, data) : customers.create(data));
+
+    if (isUpdating) {
+      this.setState(prevState => ({
+        data: prevState.data.map(data => (data.id === customer.id ? customer : data))
+      }));
+    } else {
+      this.setState(prevState => ({ data: [...prevState.data, customer] }));
+    }
+
+    this.closeForm();
   };
 
   render() {
-    const { showForm } = this.state;
+    const { showForm, data, editData } = this.state;
 
     return (
       <Container>
@@ -41,8 +65,10 @@ class Customers extends PureComponent {
             </Button>
           )}
         />
-        <Table />
-        {showForm && <FormView onClose={this.closeForm} onSave={this.closeForm} />}
+        <Table data={data} onShowEdit={this.showEditForm} />
+        {showForm && (
+          <FormView values={editData} onClose={this.closeForm} onSave={this.saveCustomer} />
+        )}
       </Container>
     );
   }

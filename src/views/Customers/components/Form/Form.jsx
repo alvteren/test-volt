@@ -14,10 +14,12 @@ class FormView extends React.PureComponent {
   };
 
   handleSubmit = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
       this.setState({ validated: true });
     } else {
       this.props.onSave(this.state.values);
@@ -33,13 +35,14 @@ class FormView extends React.PureComponent {
   render() {
     const { onClose } = this.props;
     const { validated, values } = this.state;
-    const { name, address, phone } = values;
+    const { name, address, phone, id } = values;
+    const isEdit = id > 0;
 
     return (
       <Modal show={true} onHide={onClose}>
         <Form noValidate validated={validated} onSubmit={e => this.handleSubmit(e)}>
           <Modal.Header closeButton>
-            <Modal.Title>Create Customer</Modal.Title>
+            <Modal.Title>{isEdit ? 'Update Customer' : 'Create Customer'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group controlId="formBasicText">
@@ -53,7 +56,6 @@ class FormView extends React.PureComponent {
                 onChange={this.handleChangeInput}
               />
               <Form.Control.Feedback type="invalid">Field has to be filled</Form.Control.Feedback>
-              <Form.Control.Feedback type="valid">{"It's correct"}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formBasicText">
@@ -67,7 +69,6 @@ class FormView extends React.PureComponent {
                 onChange={this.handleChangeInput}
               />
               <Form.Control.Feedback type="invalid">Field has to be filled</Form.Control.Feedback>
-              <Form.Control.Feedback type="valid">{"It's correct"}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formBasicTel">
@@ -81,7 +82,6 @@ class FormView extends React.PureComponent {
                 onChange={this.handleChangeInput}
               />
               <Form.Control.Feedback type="invalid">Field has to be filled</Form.Control.Feedback>
-              <Form.Control.Feedback type="valid">{"It's correct"}</Form.Control.Feedback>
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
@@ -89,7 +89,7 @@ class FormView extends React.PureComponent {
               Close
             </Button>
             <Button variant="primary" type="submit">
-              Save Changes
+              {isEdit ? 'Save changes' : 'Sumbit'}
             </Button>
           </Modal.Footer>
         </Form>

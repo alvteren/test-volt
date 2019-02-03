@@ -3,12 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-runtime": "^6.3.19",
     "body-parser": "1.15.0",
     "bootstrap": "^4.2.1",

@@ -13,6 +13,8 @@ module.exports = {
     alias: {
       '@UI': path.resolve(__dirname, './src/components/UI'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@api': path.resolve(__dirname, './src/api'),
+      '@services': path.resolve(__dirname, './src/services'),
       '@views': path.resolve(__dirname, './src/views')
     }
   },
