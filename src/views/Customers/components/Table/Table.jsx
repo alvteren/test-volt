@@ -4,9 +4,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TableBootstrap from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 const Table = props => {
-  const { data, onShowEdit } = props;
+  const { data, onEdit, onDelete } = props;
+
+  const handleDelete = id => event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    onDelete(id);
+  };
 
   return (
     <TableBootstrap className="customers__table" responsive hover>
@@ -16,16 +24,22 @@ const Table = props => {
           <th>Name</th>
           <th>Address</th>
           <th>Phone</th>
+          <th />
         </tr>
       </thead>
       <tbody>
         {data.length ? (
           data.map(row => (
-            <tr key={row.id} onClick={onShowEdit(row.id)}>
+            <tr key={row.id} onClick={onEdit(row.id)}>
               <td>{row.id}</td>
               <td>{row.name}</td>
               <td>{row.address}</td>
               <td>{row.phone}</td>
+              <td className="text-right">
+                <Button onClick={handleDelete(row.id)} variant="outline-danger">
+                  delete
+                </Button>
+              </td>
             </tr>
           ))
         ) : (
@@ -40,7 +54,8 @@ const Table = props => {
 
 Table.propTypes = {
   data: PropTypes.array.isRequired,
-  onShowEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 Table.defaultProps = {};

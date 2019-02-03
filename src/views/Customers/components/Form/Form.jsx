@@ -88,7 +88,7 @@ class FormView extends React.PureComponent {
             <Button variant="secondary" onClick={onClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" autoFocus>
               {isEdit ? 'Save changes' : 'Sumbit'}
             </Button>
           </Modal.Footer>
