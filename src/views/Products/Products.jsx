@@ -11,9 +11,9 @@ import Button from 'react-bootstrap/Button';
 import Table from './components/Table';
 import FormView from './components/Form';
 
-import customers from '@api/customers';
+import products from '@api/products';
 
-class Customers extends PureComponent {
+class Products extends PureComponent {
   static propTypes = {
     route: PropTypes.object.isRequired
   };
@@ -36,7 +36,7 @@ class Customers extends PureComponent {
   };
 
   showEditForm = id => async () => {
-    const customer = await customers.getOne(id);
+    const customer = await products.getOne(id);
     this.setState({ isShownForm: true, editData: customer });
   };
 
@@ -52,9 +52,7 @@ class Customers extends PureComponent {
     const isUpdating = data.id > 0;
 
     try {
-      const customer = await (isUpdating
-        ? customers.update(data.id, data)
-        : customers.create(data));
+      const customer = await (isUpdating ? products.update(data.id, data) : products.create(data));
 
       if (isUpdating) {
         this.setState(prevState => ({
@@ -74,7 +72,7 @@ class Customers extends PureComponent {
     const id = this.state.deletingId;
 
     try {
-      await customers.delete(id);
+      await products.delete(id);
       this.setState(prevState => ({
         deletingId: null,
         data: prevState.data.filter(_ => _.id !== id)
@@ -91,7 +89,7 @@ class Customers extends PureComponent {
     return (
       <Container>
         <Headline
-          title="Customer list"
+          title="Product list"
           actionComponent={props => (
             <Button variant="outline-dark" onClick={this.openForm} {...props}>
               Create
@@ -114,4 +112,4 @@ class Customers extends PureComponent {
   }
 }
 
-export default routeNode('customers')(Customers);
+export default routeNode('products')(Products);
