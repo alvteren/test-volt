@@ -8,7 +8,13 @@ import Button from 'react-bootstrap/Button';
 
 class Table extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired
+      })
+    ).isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired
   };
@@ -25,7 +31,7 @@ class Table extends React.PureComponent {
     const { data, onEdit } = this.props;
 
     return (
-      <TableBootstrap className="products__table" responsive hover>
+      <TableBootstrap className="products-table" responsive hover>
         <thead>
           <tr>
             <th>#</th>

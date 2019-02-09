@@ -1,3 +1,6 @@
-.customers__table th {
+.customers-table th {
   border-top: 0;
+}
+.customers-table td {
+  vertical-align: middle;
 }

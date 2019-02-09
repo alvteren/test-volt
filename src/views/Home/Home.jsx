@@ -9,7 +9,8 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <Headline title="Home page" />
+        <Headline title="Welcome to your own CRM" />
+        <p>Use top menu for navigate by application</p>
       </Container>
     );
   }

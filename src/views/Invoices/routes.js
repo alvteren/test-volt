@@ -20,6 +20,9 @@ export default [
         const uniqueCustomerIds = [...new Set(customerIds)];
         const promises = uniqueCustomerIds.map(customerId => customersApi.getOne(customerId));
 
+        // так как с апи списка счетов приходит только customer_id, а нам нужно имя клиента
+        // делаем запросы к апи клиентов. Promise.all тут годится только для тестового приложения
+        // так как если клиентов будет сотни будет не найс, но на реальном проекте обычно апи другое
         return Promise.all(promises).then(customersData => {
           const customersAccum = customersData.reduce(
             (res, customer) => ({ ...res, [customer.id]: customer }),
@@ -42,8 +45,10 @@ export default [
     component: () => Form,
     title: 'Invoice edit',
     onActivate: async ({ id }) => {
-      //вобще по хорошему тут нужно на сервере джоинить данные и выдавать на апи
+      // вобще по хорошему тут нужно на сервере джоинить данные и выдавать на апи
+      // но так как я на "Вы" с бэкендом, не будем рисковать править его
 
+      // Вначале получаем счет и все его товары
       const promises = [invoicesApi.getOne(id), invoiceItemsApi(id).getAll()];
       return Promise.all(promises).then(([invoice, invoiceItems]) => {
         const productIds = invoiceItems.map(_ => _.product_id);
@@ -51,6 +56,8 @@ export default [
         const promises = [customersApi.getOne(invoice.customer_id)];
         uniqProductIds.forEach(id => promises.push(productsApi.getOne(id)));
 
+        // теперь мы знаем customer_id и все product_id в счете и можем получить детальную
+        // инфу о клиенте и товарах
         return Promise.all(promises)
           .then(([customer, ...products]) => [
             products.reduce((acc, product) => ({ ...acc, [product.id]: product }), {}),

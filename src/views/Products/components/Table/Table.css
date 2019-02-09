@@ -1,3 +1,7 @@
-.products__table th {
+.products-table th {
   border-top: 0;
+}
+
+.products-table td {
+  vertical-align: middle;
 }

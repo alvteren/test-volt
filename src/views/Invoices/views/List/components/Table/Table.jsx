@@ -10,7 +10,16 @@ import Link from '@UI/Link';
 
 class Table extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        customer: PropTypes.shape({
+          name: PropTypes.string.isRequired
+        }).isRequired,
+        discount: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired
+      })
+    ).isRequired,
     router: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired
   };

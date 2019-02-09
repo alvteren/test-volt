@@ -66,6 +66,7 @@ class FormView extends React.PureComponent {
                 type="text"
                 placeholder="Enter customer name"
                 name="name"
+                autoComplete="name"
                 value={name}
                 onChange={this.handleChangeInput}
               />
@@ -79,6 +80,7 @@ class FormView extends React.PureComponent {
                 type="text"
                 placeholder="Enter customer address"
                 name="address"
+                autoComplete="street-address"
                 value={address}
                 onChange={this.handleChangeInput}
               />
@@ -90,6 +92,7 @@ class FormView extends React.PureComponent {
               <Form.Control
                 required
                 type="tel"
+                autoComplete="tel-national"
                 placeholder="Enter customer phone"
                 name="phone"
                 value={phone}
