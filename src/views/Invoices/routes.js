@@ -1,5 +1,7 @@
-import invoices from '@api/invoices';
-import customers from '@api/customers';
+import invoicesApi from '@api/invoices';
+import customersApi from '@api/customers';
+import productsApi from '@api/products';
+import invoiceItemsApi from '@api/invoice-items';
 
 import List from './views/List';
 import Form from './views/Form';
@@ -11,12 +13,12 @@ export default [
     component: () => List,
     title: 'Invoice list',
     onActivate: async () => {
-      const data = await invoices.getAll();
+      const data = await invoicesApi.getAll();
 
       if (data.length) {
         const customerIds = data.map(invoice => invoice.customer_id);
         const uniqueCustomerIds = [...new Set(customerIds)];
-        const promises = uniqueCustomerIds.map(customerId => customers.getOne(customerId));
+        const promises = uniqueCustomerIds.map(customerId => customersApi.getOne(customerId));
 
         return Promise.all(promises).then(customersData => {
           const customersAccum = customersData.reduce(
@@ -39,7 +41,43 @@ export default [
     path: '/:id',
     component: () => Form,
     title: 'Invoice edit',
-    onActivate: id => invoices.getOne(id)
+    onActivate: async ({ id }) => {
+      //вобще по хорошему тут нужно на сервере джоинить данные и выдавать на апи
+
+      const promises = [invoicesApi.getOne(id), invoiceItemsApi(id).getAll()];
+      return Promise.all(promises).then(([invoice, invoiceItems]) => {
+        const productIds = invoiceItems.map(_ => _.product_id);
+        const uniqProductIds = [...new Set(productIds)];
+        const promises = [customersApi.getOne(invoice.customer_id)];
+        uniqProductIds.forEach(id => promises.push(productsApi.getOne(id)));
+
+        return Promise.all(promises)
+          .then(([customer, ...products]) => [
+            products.reduce((acc, product) => ({ ...acc, [product.id]: product }), {}),
+            customer
+          ])
+          .then(([productsData, customer]) => {
+            const products = invoiceItems.map(({ id, product_id, quantity }) => {
+              const product = productsData[product_id];
+              const { price, name } = product;
+
+              return {
+                id,
+                product_id,
+                quantity,
+                price,
+                name
+              };
+            });
+
+            return {
+              ...invoice,
+              customer,
+              products
+            };
+          });
+      });
+    }
   },
   {
     name: 'invoices.new',

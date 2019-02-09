@@ -13,8 +13,8 @@ import Header from './components/Header';
 
 import NotFound from '@views/@Errors/NotFound';
 
-import compose from '@utils/compose';
-
+@withRoute
+@observer
 class Layout extends Component {
   static propTypes = {
     router: PropTypes.object.isRequired,
@@ -50,4 +50,4 @@ class Layout extends Component {
   }
 }
 
-export default compose([withRoute, observer])(Layout);
+export default Layout;

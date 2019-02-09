@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { routeNode } from 'react-router5';
 
-import compose from '@utils/compose';
 import Container from 'react-bootstrap/Container';
 import Headline from '@UI/Headline';
 
+@routeNode('home')
 class Home extends Component {
   render() {
     return (
@@ -15,4 +15,4 @@ class Home extends Component {
   }
 }
 
-export default compose([routeNode('home')])(Home);
+export default Home;

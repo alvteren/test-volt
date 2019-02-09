@@ -35,7 +35,7 @@ const dataMiddlewareFactory = routes => () => toState => {
       })
       .catch(error => {
         layoutStore.setLoading(false);
-        console.log(error);
+        console.error(error);
       });
   }
 

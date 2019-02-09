@@ -22,7 +22,7 @@ const LINKS = [
 
 const Header = props => {
   const { route } = props;
-  console.log('route', route);
+
   return (
     <Navbar className="header" expand="lg" variant="light" bg="light">
       <Container>

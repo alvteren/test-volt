@@ -1,7 +1,10 @@
 import request from '@services/request';
 
 export default invoiceId => ({
-  getAll: () => request.get(`/api/invoices/${invoiceId}/items`).then(response => response.data),
+  getAll: cancelToken =>
+    request
+      .get(`/api/invoices/${invoiceId}/items`, { cancelToken })
+      .then(response => response.data),
   getOne: id =>
     request.get(`/api/invoices/${invoiceId}/items/${id}`).then(response => response.data),
   create: body =>

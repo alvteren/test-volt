@@ -13,6 +13,7 @@ import FormView from './components/Form';
 
 import customers from '@api/customers';
 
+@routeNode('customers')
 class Customers extends PureComponent {
   static propTypes = {
     route: PropTypes.object.isRequired
@@ -114,4 +115,4 @@ class Customers extends PureComponent {
   }
 }
 
-export default routeNode('customers')(Customers);
+export default Customers;

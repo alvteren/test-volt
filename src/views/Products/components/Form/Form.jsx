@@ -11,11 +11,20 @@ class FormView extends React.PureComponent {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    route: PropTypes.object.isRequired
+    values: PropTypes.object
+  };
+
+  static defaultProps = {
+    values: {
+      name: '',
+      address: '',
+      phone: ''
+    }
   };
 
   state = {
-    validated: false
+    validated: false,
+    values: this.props.values
   };
 
   handleSubmit = event => {

@@ -13,6 +13,7 @@ import Table from './components/Table';
 
 import invoices from '@api/invoices';
 
+@routeNode('invoices')
 class List extends PureComponent {
   static propTypes = {
     route: PropTypes.object.isRequired
@@ -33,7 +34,7 @@ class List extends PureComponent {
     this.setState({ deletingId: null });
   };
 
-  deleteCustomer = async () => {
+  deleteInvoice = async () => {
     const id = this.state.deletingId;
 
     try {
@@ -66,7 +67,7 @@ class List extends PureComponent {
           <DialogModal
             message="Are you sure?"
             onDecline={this.closeDeleteDialog}
-            onConfirm={this.deleteCustomer}
+            onConfirm={this.deleteInvoice}
           />
         )}
       </Container>
@@ -74,4 +75,4 @@ class List extends PureComponent {
   }
 }
 
-export default routeNode('invoices')(List);
+export default List;
