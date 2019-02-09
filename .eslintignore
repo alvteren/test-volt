@@ -1,0 +1,6 @@
+.vscode/blueprint-templates/
+node_modules/
+build/
+*.html
+server.js
+webpack.config.js

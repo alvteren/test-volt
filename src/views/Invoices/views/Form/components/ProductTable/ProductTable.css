@@ -1,0 +1,21 @@
+.invoice-products-table th {
+  border-top: 0;
+}
+.invoice-products-table td {
+  vertical-align: middle
+}
+
+.invoice-products__qty{
+  max-width: 6rem;
+}
+
+.invoice-products-table__discount-price {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: green;
+}
+
+.invoice-products-table__discount-price s {
+  color: #000;
+  font-size: 1rem;
+}

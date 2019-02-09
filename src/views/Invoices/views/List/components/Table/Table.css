@@ -1,0 +1,11 @@
+.invoices-table th {
+  border-top: 0;
+}
+
+.invoices-table td {
+  vertical-align: middle;
+}
+
+.invoices-table-row__delete {
+  margin-left: 8px;
+}

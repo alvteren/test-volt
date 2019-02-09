@@ -1,0 +1,14 @@
+.headline {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.headline__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.headline__action {
+  margin-left: 16px;
+}

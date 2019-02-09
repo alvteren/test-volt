@@ -6,15 +6,17 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'src/app.jsx')
-  ],
+  entry: ['webpack-hot-middleware/client?reload=true', path.join(__dirname, 'src/index.js')],
   resolve: {
-    root: [
-      path.resolve(__dirname, "src"),
-    ],
-    extensions: ['', '.js', '.jsx', '.css']
+    root: [path.resolve(__dirname, 'src')],
+    extensions: ['', '.js', '.jsx', '.css'],
+    alias: {
+      '@UI': path.resolve(__dirname, './src/components/UI'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@api': path.resolve(__dirname, './src/api'),
+      '@services': path.resolve(__dirname, './src/services'),
+      '@views': path.resolve(__dirname, './src/views')
+    }
   },
   output: {
     path: path.join(__dirname, '/public/'),
@@ -35,13 +37,16 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel'
-    }, {
-      test: /\.css$/,
-      loader: 'style!css'
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
+      }
+    ]
   }
 };

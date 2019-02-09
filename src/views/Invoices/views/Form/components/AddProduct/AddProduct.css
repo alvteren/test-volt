@@ -1,0 +1,9 @@
+.add-product__select {
+  flex-grow: 2;
+  margin-bottom: 0;
+}
+
+.add-product__button {
+  margin-left: 1rem;
+  margin-top: 31px;
+}
