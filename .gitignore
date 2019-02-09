@@ -23,3 +23,6 @@ yarn-error.log*
 #webstorm
 .idea/
 .vscode/
+
+# database
+*.sqllite

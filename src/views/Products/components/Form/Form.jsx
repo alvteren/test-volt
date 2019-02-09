@@ -8,6 +8,20 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 class FormView extends React.PureComponent {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    values: PropTypes.object
+  };
+
+  static defaultProps = {
+    values: {
+      name: '',
+      address: '',
+      phone: ''
+    }
+  };
+
   state = {
     validated: false,
     values: this.props.values
@@ -39,7 +53,7 @@ class FormView extends React.PureComponent {
     const isEdit = id > 0;
 
     return (
-      <Modal show={true} onHide={onClose}>
+      <Modal show onHide={onClose}>
         <Form noValidate validated={validated} onSubmit={e => this.handleSubmit(e)}>
           <Modal.Header closeButton>
             <Modal.Title>{isEdit ? 'Update Customer' : 'Create Customer'}</Modal.Title>
@@ -84,18 +98,5 @@ class FormView extends React.PureComponent {
     );
   }
 }
-
-FormView.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  values: PropTypes.object
-};
-FormView.defaultProps = {
-  values: {
-    name: '',
-    address: '',
-    phone: ''
-  }
-};
 
 export default FormView;

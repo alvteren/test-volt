@@ -11,8 +11,9 @@ import Button from 'react-bootstrap/Button';
 import Table from './components/Table';
 import FormView from './components/Form';
 
-import products from '@api/products';
+import productsApi from '@api/products';
 
+@routeNode('products')
 class Products extends PureComponent {
   static propTypes = {
     route: PropTypes.object.isRequired
@@ -36,7 +37,7 @@ class Products extends PureComponent {
   };
 
   showEditForm = id => async () => {
-    const customer = await products.getOne(id);
+    const customer = await productsApi.getOne(id);
     this.setState({ isShownForm: true, editData: customer });
   };
 
@@ -52,7 +53,9 @@ class Products extends PureComponent {
     const isUpdating = data.id > 0;
 
     try {
-      const customer = await (isUpdating ? products.update(data.id, data) : products.create(data));
+      const customer = await (isUpdating
+        ? productsApi.update(data.id, data)
+        : productsApi.create(data));
 
       if (isUpdating) {
         this.setState(prevState => ({
@@ -72,7 +75,7 @@ class Products extends PureComponent {
     const id = this.state.deletingId;
 
     try {
-      await products.delete(id);
+      await productsApi.delete(id);
       this.setState(prevState => ({
         deletingId: null,
         data: prevState.data.filter(_ => _.id !== id)
@@ -112,4 +115,4 @@ class Products extends PureComponent {
   }
 }
 
-export default routeNode('products')(Products);
+export default Products;
